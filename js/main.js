@@ -248,12 +248,42 @@ function initFormValidation() {
     }
 
     if (valid) {
-      var formCard = document.querySelector('.form-content');
-      var successCard = document.querySelector('.form-success');
-      if (formCard && successCard) {
-        formCard.style.display = 'none';
-        successCard.classList.add('active');
-      }
+      var submitBtn = form.querySelector('button[type="submit"]');
+      var originalBtnText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = 'Gönderiliyor...';
+
+      var formData = new FormData(form);
+      
+      fetch(form.action, {
+        method: form.method,
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      }).then(response => {
+        if (response.ok) {
+          var formCard = document.querySelector('.form-content');
+          var successCard = document.querySelector('.form-success');
+          if (formCard && successCard) {
+            formCard.style.display = 'none';
+            successCard.classList.add('active');
+          }
+        } else {
+          response.json().then(data => {
+            if (Object.hasOwn(data, 'errors')) {
+              alert(data["errors"].map(error => error["message"]).join(", "));
+            } else {
+              alert("Bir sorun oluştu. Lütfen tekrar deneyin.");
+            }
+          });
+        }
+      }).catch(error => {
+        alert("Bir ağ hatası oluştu. Lütfen bağlantınızı kontrol edin.");
+      }).finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      });
     }
   });
 
