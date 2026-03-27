@@ -254,11 +254,24 @@ function initFormValidation() {
       submitBtn.innerHTML = 'Gönderiliyor...';
 
       var formData = new FormData(form);
+      var object = {};
+      formData.forEach((value, key) => {
+        if (!object[key]) {
+          object[key] = value;
+          return;
+        }
+        if (!Array.isArray(object[key])) {
+          object[key] = [object[key]];
+        }
+        object[key].push(value);
+      });
+      var jsonBody = JSON.stringify(object);
       
       fetch(form.action, {
         method: form.method,
-        body: formData,
+        body: jsonBody,
         headers: {
+          'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
       }).then(async response => {
