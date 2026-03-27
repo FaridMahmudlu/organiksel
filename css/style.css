@@ -675,6 +675,8 @@ section {
   transition: var(--transition-smooth);
   position: relative;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .service-card::after {
@@ -687,6 +689,7 @@ section {
   background: radial-gradient(circle at center, transparent 30%, rgba(76, 175, 80, 0.02) 70%);
   opacity: 0;
   transition: var(--transition-slow);
+  pointer-events: none;
 }
 
 .service-card:hover {
@@ -793,6 +796,10 @@ section {
 
 .service-card:not(.premium) .service-features li svg {
   color: var(--green-500);
+}
+
+.service-card .btn {
+  margin-top: auto;
 }
 
 .service-card.premium .service-features li svg {
