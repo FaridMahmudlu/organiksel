@@ -261,8 +261,9 @@ function initFormValidation() {
         headers: {
           'Accept': 'application/json'
         }
-      }).then(response => {
-        if (response.ok) {
+      }).then(async response => {
+        let json = await response.json();
+        if (response.status == 200) {
           var formCard = document.querySelector('.form-content');
           var successCard = document.querySelector('.form-success');
           if (formCard && successCard) {
@@ -270,13 +271,8 @@ function initFormValidation() {
             successCard.classList.add('active');
           }
         } else {
-          response.json().then(data => {
-            if (Object.hasOwn(data, 'errors')) {
-              alert(data["errors"].map(error => error["message"]).join(", "));
-            } else {
-              alert("Bir sorun oluştu. Lütfen tekrar deneyin.");
-            }
-          });
+          console.log(response);
+          alert(json.message || "Bir sorun oluştu. Lütfen tekrar deneyin.");
         }
       }).catch(error => {
         alert("Bir ağ hatası oluştu. Lütfen bağlantınızı kontrol edin.");
