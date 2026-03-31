@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /js/admin.js
+Disallow: /js/firebase-config.js
+
+Sitemap: https://organiksel.com/sitemap.xml

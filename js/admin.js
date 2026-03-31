@@ -67,10 +67,29 @@ var fileLabel = document.getElementById('fileLabel');
 var thumbnailInput = document.getElementById('resThumbnail');
 var thumbnailLabel = document.getElementById('thumbnailLabel');
 var videoUrlInput = document.getElementById('resVideoUrl');
+var adminSearchInput = document.getElementById('adminSearch');
 
 // Edit state
 var editingId = null;
 var editingData = null;
+var allResources = []; // Store for search filtering
+
+// =============================================
+// SEARCH
+// =============================================
+adminSearchInput.addEventListener('input', function() {
+  var query = this.value.trim().toLowerCase();
+  if (!query) {
+    renderResources(allResources);
+    return;
+  }
+  var filtered = allResources.filter(function(r) {
+    return (r.title || '').toLowerCase().indexOf(query) !== -1
+      || (r.description || '').toLowerCase().indexOf(query) !== -1
+      || (r.category || '').toLowerCase().indexOf(query) !== -1;
+  });
+  renderResources(filtered);
+});
 
 // =============================================
 // AUTH STATE
@@ -202,82 +221,85 @@ function resetFileLabel() {
 // =============================================
 function loadResources() {
   resourcesList.innerHTML = '<div class="admin-loading"><span class="admin-spinner"></span> Kaynaklar yükleniyor...</div>';
+  adminSearchInput.value = '';
   var q = query(collection(db, 'resources'), orderBy('createdAt', 'desc'));
 
   getDocs(q).then(function(snapshot) {
-    var resources = [];
+    allResources = [];
     snapshot.forEach(function(docSnap) {
-      resources.push({ id: docSnap.id, ...docSnap.data() });
+      allResources.push({ id: docSnap.id, ...docSnap.data() });
     });
-
-    totalResourcesEl.textContent = resources.length;
-
-    if (resources.length === 0) {
-      resourcesList.innerHTML =
-        '<div class="admin-empty">' +
-          '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>' +
-          '<h3>Henüz kaynak eklenmemiş</h3>' +
-          '<p>"Yeni Kaynak Ekle" butonuna tıklayarak ilk kaynağınızı ekleyin.</p>' +
-        '</div>';
-      return;
-    }
-
-    var categoryLabels = { pdf: 'PDF Rehber', checklist: 'Checklist', ebook: 'E-Kitap' };
-    var categoryColors = { pdf: 'admin-tag-pdf', checklist: 'admin-tag-checklist', ebook: 'admin-tag-ebook' };
-
-    var html = '';
-    resources.forEach(function(r) {
-      var date = r.createdAt ? new Date(r.createdAt.seconds * 1000).toLocaleDateString('tr-TR') : 'Tarih yok';
-      var thumbHtml = r.thumbnailUrl ? '<img src="' + sanitizeAttr(r.thumbnailUrl) + '" alt="" class="admin-res-thumb">' : '';
-
-      html +=
-        '<div class="admin-res-card">' +
-          thumbHtml +
-          '<div class="admin-res-info">' +
-            '<div class="admin-res-top">' +
-              '<span class="admin-res-tag ' + (categoryColors[r.category] || '') + '">' + sanitizeText(categoryLabels[r.category] || r.category || '') + '</span>' +
-              '<span class="admin-res-date">' + date + '</span>' +
-            '</div>' +
-            '<h3>' + sanitizeText(r.title || '') + '</h3>' +
-            '<p>' + sanitizeText(r.description || '') + '</p>' +
-            (r.fileSize ? '<span class="admin-res-size">📎 ' + sanitizeText(r.fileSize) + '</span>' : '') +
-          '</div>' +
-          '<div class="admin-res-actions">' +
-            '<button class="admin-btn-edit" data-rid="' + sanitizeAttr(r.id) + '" title="Düzenle">' +
-              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>' +
-            '</button>' +
-            '<button class="admin-btn-delete" data-rid="' + sanitizeAttr(r.id) + '" title="Sil">' +
-              '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>' +
-            '</button>' +
-          '</div>' +
-        '</div>';
-    });
-
-    resourcesList.innerHTML = html;
-
-    // Store resources data in memory for edit (avoid storing in DOM attributes)
-    var resourceMap = {};
-    resources.forEach(function(r) { resourceMap[r.id] = r; });
-
-    // Attach edit listeners
-    resourcesList.querySelectorAll('.admin-btn-edit').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var rid = this.getAttribute('data-rid');
-        if (resourceMap[rid]) openEditModal(resourceMap[rid]);
-      });
-    });
-
-    // Attach delete listeners
-    resourcesList.querySelectorAll('.admin-btn-delete').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var rid = this.getAttribute('data-rid');
-        if (resourceMap[rid]) {
-          deleteResource(rid, resourceMap[rid].filePath || '', resourceMap[rid].thumbnailPath || '');
-        }
-      });
-    });
-  }).catch(function(error) {
+    totalResourcesEl.textContent = allResources.length;
+    renderResources(allResources);
+  }).catch(function() {
     resourcesList.innerHTML = '<div class="admin-empty"><p>Veriler yüklenirken bir hata oluştu.</p></div>';
+  });
+}
+
+function renderResources(resources) {
+  if (resources.length === 0) {
+    resourcesList.innerHTML =
+      '<div class="admin-empty">' +
+        '<svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>' +
+        '<h3>' + (adminSearchInput.value ? 'Sonuç bulunamadı' : 'Henüz kaynak eklenmemiş') + '</h3>' +
+        '<p>' + (adminSearchInput.value ? '"' + sanitizeText(adminSearchInput.value) + '" ile eşleşen kaynak yok.' : '"Yeni Kaynak Ekle" butonuna tıklayarak ilk kaynağınızı ekleyin.') + '</p>' +
+      '</div>';
+    return;
+  }
+
+  var categoryLabels = { pdf: 'PDF Rehber', checklist: 'Checklist', ebook: 'E-Kitap' };
+  var categoryColors = { pdf: 'admin-tag-pdf', checklist: 'admin-tag-checklist', ebook: 'admin-tag-ebook' };
+
+  var html = '';
+  resources.forEach(function(r) {
+    var date = r.createdAt ? new Date(r.createdAt.seconds * 1000).toLocaleDateString('tr-TR') : 'Tarih yok';
+    var thumbHtml = r.thumbnailUrl ? '<img src="' + sanitizeAttr(r.thumbnailUrl) + '" alt="" class="admin-res-thumb">' : '';
+
+    html +=
+      '<div class="admin-res-card">' +
+        thumbHtml +
+        '<div class="admin-res-info">' +
+          '<div class="admin-res-top">' +
+            '<span class="admin-res-tag ' + (categoryColors[r.category] || '') + '">' + sanitizeText(categoryLabels[r.category] || r.category || '') + '</span>' +
+            '<span class="admin-res-date">' + date + '</span>' +
+          '</div>' +
+          '<h3>' + sanitizeText(r.title || '') + '</h3>' +
+          '<p>' + sanitizeText(r.description || '') + '</p>' +
+          (r.fileSize ? '<span class="admin-res-size">📎 ' + sanitizeText(r.fileSize) + '</span>' : '') +
+        '</div>' +
+        '<div class="admin-res-actions">' +
+          '<button class="admin-btn-edit" data-rid="' + sanitizeAttr(r.id) + '" title="Düzenle">' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>' +
+          '</button>' +
+          '<button class="admin-btn-delete" data-rid="' + sanitizeAttr(r.id) + '" title="Sil">' +
+            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+  });
+
+  resourcesList.innerHTML = html;
+
+  // Store resources data in memory for edit
+  var resourceMap = {};
+  allResources.forEach(function(r) { resourceMap[r.id] = r; });
+
+  // Attach edit listeners
+  resourcesList.querySelectorAll('.admin-btn-edit').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var rid = this.getAttribute('data-rid');
+      if (resourceMap[rid]) openEditModal(resourceMap[rid]);
+    });
+  });
+
+  // Attach delete listeners
+  resourcesList.querySelectorAll('.admin-btn-delete').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var rid = this.getAttribute('data-rid');
+      if (resourceMap[rid]) {
+        deleteResource(rid, resourceMap[rid].filePath || '', resourceMap[rid].thumbnailPath || '');
+      }
+    });
   });
 }
 

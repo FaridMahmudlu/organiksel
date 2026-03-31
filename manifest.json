@@ -1,0 +1,20 @@
+{
+  "name": "Organiksel — Instagram Büyüme Partneri",
+  "short_name": "Organiksel",
+  "description": "Instagram hesabınızı organik büyütme stratejileri ile dönüştürün.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080C08",
+  "theme_color": "#4CAF50",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "assets/logo-dark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "marketing"],
+  "lang": "tr"
+}
