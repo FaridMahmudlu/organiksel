@@ -20,6 +20,7 @@
   <meta name="twitter:title" content="Ücretsiz Instagram Kaynakları — Organiksel">
   <meta name="twitter:image" content="https://organiksel.com/assets/og-image.png">
   <link rel="icon" type="image/svg+xml" href="assets/logo-dark.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -30,7 +31,10 @@
     gtag('js', new Date());
     gtag('config', 'G-YB4C211V8L');
   </script>
-  <link rel="stylesheet" href="css/style.css">
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://organiksel.com/"},{"@type":"ListItem","position":2,"name":"Kaynaklar","item":"https://organiksel.com/resources"}]}
+  </script>
+  <link rel="stylesheet" href="css/style.min.css">
 </head>
 <body>
 
@@ -262,7 +266,7 @@
       resources.forEach(function(r, i) {
         var date = r.createdAt ? new Date(r.createdAt.seconds * 1000).toLocaleDateString('tr-TR', {month:'long', year:'numeric'}) : '';
         var videoHtml = '';
-        var thumbImg = r.thumbnailUrl ? '<img src="' + escapeHtml(r.thumbnailUrl) + '" alt="" class="res-card-thumb">' : '';
+        var thumbImg = r.thumbnailUrl ? '<img src="' + escapeHtml(r.thumbnailUrl) + '" alt="' + escapeHtml(r.title || '') + '" class="res-card-thumb" loading="lazy">' : '';
 
         if (r.videoUrl) {
           var isMp4 = r.videoUrl.match(/\.(mp4|webm|ogg)(\?|$)/i);

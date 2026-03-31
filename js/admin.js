@@ -253,7 +253,7 @@ function renderResources(resources) {
   var html = '';
   resources.forEach(function(r) {
     var date = r.createdAt ? new Date(r.createdAt.seconds * 1000).toLocaleDateString('tr-TR') : 'Tarih yok';
-    var thumbHtml = r.thumbnailUrl ? '<img src="' + sanitizeAttr(r.thumbnailUrl) + '" alt="" class="admin-res-thumb">' : '';
+    var thumbHtml = r.thumbnailUrl ? '<img src="' + sanitizeAttr(r.thumbnailUrl) + '" alt="' + sanitizeAttr(r.title || '') + '" class="admin-res-thumb" loading="lazy">' : '';
 
     html +=
       '<div class="admin-res-card">' +
