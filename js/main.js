@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
   initFaqAccordion();
   initScrollToTop();
   initCookieBanner();
+  initResourceFilters();
 
 });
 
@@ -285,9 +286,9 @@ function initFormValidation() {
           }
         } else {
           console.log(response);
-          alert(json.message || "Bir sorun oluştu. Lütfen tekrar deneyin.");
+          alert("Bir sorun oluştu. Lütfen tekrar deneyin.");
         }
-      }).catch(error => {
+      }).catch(function() {
         alert("Bir ağ hatası oluştu. Lütfen bağlantınızı kontrol edin.");
       }).finally(() => {
         submitBtn.disabled = false;
@@ -358,5 +359,36 @@ function initCookieBanner() {
     banner.classList.remove('visible');
     banner.classList.add('hidden');
     localStorage.setItem('cookieAccepted', 'true');
+  });
+}
+
+function initResourceFilters() {
+  var filterBtns = document.querySelectorAll('.res-filter-btn');
+  var cards = document.querySelectorAll('.res-card');
+  if (filterBtns.length === 0 || cards.length === 0) return;
+
+  filterBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var filter = this.getAttribute('data-filter');
+
+      filterBtns.forEach(function(b) { b.classList.remove('active'); });
+      this.classList.add('active');
+
+      cards.forEach(function(card) {
+        var category = card.getAttribute('data-category');
+        if (filter === 'all' || category === filter) {
+          card.classList.remove('hidden');
+          card.style.opacity = '0';
+          card.style.transform = 'translateY(20px)';
+          setTimeout(function() {
+            card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+          }, 50);
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
   });
 }

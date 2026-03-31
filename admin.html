@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | Organiksel</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="assets/logo-dark.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div class="admin-login-screen" id="loginScreen">
+    <div class="admin-login-bg">
+      <div class="admin-login-orb admin-orb-1"></div>
+      <div class="admin-login-orb admin-orb-2"></div>
+      <div class="admin-login-orb admin-orb-3"></div>
+      <div class="admin-login-grid"></div>
+    </div>
+    <div class="admin-login-card">
+      <div class="admin-login-logo">
+        <span class="logo-text-green">Organik</span><span class="logo-text-red">SEL</span>
+      </div>
+      <div class="admin-login-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        Güvenli Admin Girişi
+      </div>
+      <h1>Admin Panel</h1>
+      <p class="admin-login-subtitle">Kaynak yönetim paneline erişmek için giriş yapın.</p>
+      <form id="loginForm" autocomplete="off">
+        <div class="admin-form-group">
+          <label for="loginEmail">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22 6 12 13 2 6"></polyline></svg>
+            E-posta
+          </label>
+          <input type="email" id="loginEmail" placeholder="admin@email.com" required>
+        </div>
+        <div class="admin-form-group">
+          <label for="loginPassword">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Şifre
+          </label>
+          <input type="password" id="loginPassword" placeholder="••••••••" required>
+        </div>
+        <div class="admin-login-error" id="loginError"></div>
+        <button type="submit" class="admin-login-btn" id="loginBtn">
+          Giriş Yap
+        </button>
+      </form>
+      <div class="admin-login-footer">
+        <a href="index.html">← Ana Sayfaya Dön</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div class="admin-dashboard" id="dashboard" style="display:none;">
+
+    <!-- TOP NAV -->
+    <nav class="admin-nav">
+      <div class="admin-nav-inner">
+        <a href="index.html" class="admin-nav-logo">
+          <span class="logo-text-green">Organik</span><span class="logo-text-red">SEL</span>
+        </a>
+        <span class="admin-nav-divider"></span>
+        <span class="admin-nav-label">Admin Panel</span>
+        <div class="admin-nav-right">
+          <span class="admin-nav-email" id="adminEmail"></span>
+          <button class="admin-nav-logout" id="logoutBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            Çıkış
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+      <div class="admin-container">
+
+        <!-- HEADER -->
+        <div class="admin-header">
+          <div>
+            <h1>Kaynaklar Yönetimi</h1>
+            <p>Videolarda bahsedilen kaynakları buradan yönetin.</p>
+          </div>
+          <button class="admin-add-btn" id="addResourceBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Yeni Kaynak Ekle
+          </button>
+        </div>
+
+        <!-- STATS -->
+        <div class="admin-stats">
+          <div class="admin-stat-card">
+            <span class="admin-stat-icon">📚</span>
+            <div>
+              <span class="admin-stat-value" id="totalResources">0</span>
+              <span class="admin-stat-label">Toplam Kaynak</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESOURCES LIST -->
+        <div class="admin-resources-list" id="resourcesList">
+          <div class="admin-loading">
+            <span class="admin-spinner"></span> Kaynaklar yükleniyor...
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ADD/EDIT MODAL -->
+    <div class="admin-modal" id="resourceModal">
+      <div class="admin-modal-content">
+        <div class="admin-modal-header">
+          <h2 id="modalTitle">Yeni Kaynak Ekle</h2>
+          <button class="admin-modal-close" id="closeModal">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+        <form id="resourceForm">
+          <!-- Section: Temel Bilgiler -->
+          <div class="admin-form-section-label">Temel Bilgiler</div>
+          <div class="admin-form-group">
+            <label for="resTitle">Başlık *</label>
+            <input type="text" id="resTitle" placeholder="Kaynak başlığını yazın..." required>
+          </div>
+          <div class="admin-form-group">
+            <label for="resDescription">Açıklama</label>
+            <textarea id="resDescription" rows="2" placeholder="Kısa bir açıklama yazın..."></textarea>
+          </div>
+          <div class="admin-form-row">
+            <div class="admin-form-group">
+              <label for="resCategory">Kategori *</label>
+              <select id="resCategory" required>
+                <option value="">Seçiniz...</option>
+                <option value="pdf">📄 PDF Rehber</option>
+                <option value="checklist">✅ Checklist</option>
+                <option value="ebook">📚 E-Kitap</option>
+              </select>
+            </div>
+            <div class="admin-form-group">
+              <label for="resVideoUrl">Video Linki</label>
+              <input type="url" id="resVideoUrl" placeholder="Instagram, YouTube vb.">
+            </div>
+          </div>
+
+          <!-- Section: Dosya Yükleme -->
+          <div class="admin-form-divider"></div>
+          <div class="admin-form-section-label">Dosya Yükleme</div>
+          <div class="admin-form-row">
+            <div class="admin-form-group">
+              <label>Kapak Görseli</label>
+              <div class="admin-file-upload">
+                <input type="file" id="resThumbnail" accept="image/*">
+                <div class="admin-file-label" id="thumbnailLabel">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:0.4;margin-bottom:6px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                  <span>JPG, PNG, WebP</span>
+                </div>
+              </div>
+            </div>
+            <div class="admin-form-group">
+              <label>Kaynak Dosyası</label>
+              <div class="admin-file-upload">
+                <input type="file" id="resFile" accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.txt,.csv">
+                <div class="admin-file-label" id="fileLabel">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="opacity:0.4;margin-bottom:6px;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                  <span>PDF, DOCX, vb.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="admin-upload-progress" id="uploadProgress" style="display:none;">
+            <div class="admin-progress-bar">
+              <div class="admin-progress-fill" id="uploadProgressBar"></div>
+            </div>
+            <span class="admin-progress-text" id="uploadProgressText">%0</span>
+          </div>
+          <div class="admin-modal-actions">
+            <button type="button" class="admin-btn-cancel" id="cancelModal">İptal</button>
+            <button type="submit" class="admin-btn-submit" id="submitBtn">Kaydet</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TOAST -->
+  <div class="admin-toast" id="adminToast"></div>
+
+  <script type="module" src="js/admin.js"></script>
+</body>
+</html>
