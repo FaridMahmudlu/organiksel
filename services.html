@@ -38,6 +38,7 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://organiksel.com/"},{"@type":"ListItem","position":2,"name":"Hizmetler","item":"https://organiksel.com/services"}]}
   </script>
+  <link rel="preload" href="css/style.min.css" as="style">
   <link rel="stylesheet" href="css/style.min.css">
 </head>
 
@@ -78,6 +79,7 @@
     <a href="profile-analysis.html">Ücretsiz Analiz</a>
   </div>
 
+  <main>
   <section class="subpage-hero">
     <div class="hero-bg">
       <div class="hero-orb hero-orb-1"></div>
@@ -290,6 +292,8 @@
     </div>
   </section>
 
+  </main>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -357,11 +361,14 @@
       <polyline points="18 15 12 9 6 15"></polyline>
     </svg></button>
   <div class="cookie-banner" id="cookieBanner">
-    <p>Bu web sitesi deneyiminizi geliştirmek için çerezler kullanır.</p><button class="cookie-accept"
-      id="cookieAccept">Kabul Et</button>
+    <p>Bu web sitesi deneyiminizi geliştirmek için çerezler kullanır. <a href="privacy-policy.html" style="color:var(--green-400);text-decoration:underline;">Gizlilik Politikası</a></p>
+    <div class="cookie-actions">
+      <button class="cookie-reject" id="cookieReject">Reddet</button>
+      <button class="cookie-accept" id="cookieAccept">Kabul Et</button>
+    </div>
   </div>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.min.js"></script>
 </body>
 
 </html>

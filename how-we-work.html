@@ -38,6 +38,7 @@
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://organiksel.com/"},{"@type":"ListItem","position":2,"name":"Nasıl Çalışıyoruz?","item":"https://organiksel.com/how-we-work"}]}
   </script>
+  <link rel="preload" href="css/style.min.css" as="style">
   <link rel="stylesheet" href="css/style.min.css">
 </head>
 
@@ -71,6 +72,7 @@
     <a href="profile-analysis.html">Ücretsiz Analiz</a>
   </div>
 
+  <main>
   <section class="subpage-hero">
     <div class="hero-bg">
       <div class="hero-orb hero-orb-1"></div>
@@ -201,6 +203,8 @@
     </div>
   </section>
 
+  </main>
+
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -230,12 +234,11 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>Hizmetler</h4>
+          <h4>Hakkımızda</h4>
           <ul>
-            <li><a href="services.html">Organiksel</a></li>
-            <li><a href="services.html">OrganikSeLL</a></li>
-            <li><a href="resources.html">Kaynaklar</a></li>
-            <li><a href="profile-analysis.html">Ücretsiz Analiz</a></li>
+            <li><a href="how-we-work.html">Nasıl Çalışıyoruz?</a></li>
+            <li><a href="index.html#referanslar">Referanslar</a></li>
+            <li><a href="index.html#sss">SSS</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -266,11 +269,14 @@
       <polyline points="18 15 12 9 6 15"></polyline>
     </svg></button>
   <div class="cookie-banner" id="cookieBanner">
-    <p>Bu web sitesi deneyiminizi geliştirmek için çerezler kullanır.</p><button class="cookie-accept"
-      id="cookieAccept">Kabul Et</button>
+    <p>Bu web sitesi deneyiminizi geliştirmek için çerezler kullanır. <a href="privacy-policy.html" style="color:var(--green-400);text-decoration:underline;">Gizlilik Politikası</a></p>
+    <div class="cookie-actions">
+      <button class="cookie-reject" id="cookieReject">Reddet</button>
+      <button class="cookie-accept" id="cookieAccept">Kabul Et</button>
+    </div>
   </div>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.min.js"></script>
 </body>
 
 </html>

@@ -9,10 +9,22 @@
   "orientation": "portrait-primary",
   "icons": [
     {
+      "src": "assets/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
       "src": "assets/logo-dark.svg",
       "sizes": "any",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "assets/og-image.png",
+      "sizes": "1200x630",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "categories": ["business", "marketing"],

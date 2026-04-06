@@ -347,19 +347,30 @@ function initScrollToTop() {
 function initCookieBanner() {
   var banner = document.getElementById('cookieBanner');
   var acceptBtn = document.getElementById('cookieAccept');
-  if (!banner || !acceptBtn) return;
+  var rejectBtn = document.getElementById('cookieReject');
+  if (!banner || (!acceptBtn && !rejectBtn)) return;
 
-  if (localStorage.getItem('cookieAccepted')) return;
+  if (localStorage.getItem('cookieAccepted') || localStorage.getItem('cookieRejected')) return;
 
   setTimeout(function() {
     banner.classList.add('visible');
   }, 2000);
 
-  acceptBtn.addEventListener('click', function() {
-    banner.classList.remove('visible');
-    banner.classList.add('hidden');
-    localStorage.setItem('cookieAccepted', 'true');
-  });
+  if (acceptBtn) {
+    acceptBtn.addEventListener('click', function() {
+      banner.classList.remove('visible');
+      banner.classList.add('hidden');
+      localStorage.setItem('cookieAccepted', 'true');
+    });
+  }
+
+  if (rejectBtn) {
+    rejectBtn.addEventListener('click', function() {
+      banner.classList.remove('visible');
+      banner.classList.add('hidden');
+      localStorage.setItem('cookieRejected', 'true');
+    });
+  }
 }
 
 function initResourceFilters() {
