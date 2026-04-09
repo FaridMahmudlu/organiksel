@@ -22,19 +22,19 @@
   --red-200: #FFAB91;
   --red-100: #FFCCBC;
 
-  --bg-dark: #080C08;
-  --bg-dark-2: #0E140E;
-  --bg-dark-3: #141C14;
-  --bg-card: rgba(20, 28, 20, 0.6);
-  --bg-card-hover: rgba(30, 42, 30, 0.8);
-  --bg-glass: rgba(255, 255, 255, 0.03);
-  --bg-glass-hover: rgba(255, 255, 255, 0.06);
-  --border-glass: rgba(255, 255, 255, 0.06);
-  --border-glass-hover: rgba(76, 175, 80, 0.3);
+  --bg-dark: #0A0E1A;
+  --bg-dark-2: #0F1428;
+  --bg-dark-3: #151C38;
+  --bg-card: rgba(18, 24, 48, 0.6);
+  --bg-card-hover: rgba(26, 34, 62, 0.8);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --bg-glass-hover: rgba(255, 255, 255, 0.07);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --border-glass-hover: rgba(76, 175, 80, 0.35);
 
-  --text-primary: #F1F8F1;
-  --text-secondary: #A8C4A8;
-  --text-muted: #6B8A6B;
+  --text-primary: #EDF0F7;
+  --text-secondary: #B0BCDB;
+  --text-muted: #6B7BA0;
   --text-accent: var(--green-400);
 
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
@@ -125,7 +125,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar.scrolled {
-  background: rgba(8, 12, 8, 0.9);
+  background: rgba(10, 14, 26, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   padding: 12px 0;
@@ -283,7 +283,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero-orb-2 {
   width: 400px;
   height: 400px;
-  background: radial-gradient(circle, var(--red-600), transparent);
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.7), transparent);
   bottom: -50px;
   left: -100px;
   animation-delay: -5s;
@@ -292,12 +292,12 @@ h1, h2, h3, h4, h5, h6 {
 .hero-orb-3 {
   width: 300px;
   height: 300px;
-  background: radial-gradient(circle, var(--green-400), transparent);
+  background: radial-gradient(circle, rgba(76, 175, 80, 0.5), rgba(99, 102, 241, 0.3), transparent);
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   animation-delay: -10s;
-  opacity: 0.2;
+  opacity: 0.25;
 }
 
 @keyframes orbFloat {
@@ -311,8 +311,8 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(76, 175, 80, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(76, 175, 80, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(99, 102, 241, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.04) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 70%);
   -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 70%);
@@ -1078,7 +1078,7 @@ section {
 .mobile-menu {
   position: fixed;
   inset: 0;
-  background: rgba(8, 12, 8, 0.98);
+  background: rgba(10, 14, 26, 0.98);
   backdrop-filter: blur(20px);
   z-index: 999;
   display: flex;
@@ -2861,7 +2861,7 @@ section {
   grid-template-columns: 1fr 1fr;
   gap: 64px;
   align-items: center;
-  background: rgba(14, 20, 14, 0.5);
+  background: rgba(15, 20, 40, 0.5);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -3009,7 +3009,7 @@ section {
   align-items: center;
   gap: 14px;
   padding: 16px 20px;
-  background: rgba(20, 28, 20, 0.8);
+  background: rgba(18, 24, 48, 0.8);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -3302,7 +3302,7 @@ section {
 }
 
 .res-card {
-  background: rgba(14, 20, 14, 0.6);
+  background: rgba(15, 20, 40, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 24px;
   overflow: hidden;
@@ -3804,7 +3804,7 @@ a.res-card-video-link {
   width: 100%;
   max-width: 420px;
   padding: 48px 40px;
-  background: rgba(14, 20, 14, 0.7);
+  background: rgba(15, 20, 40, 0.7);
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -4169,7 +4169,7 @@ a.res-card-video-link {
   align-items: center;
   justify-content: space-between;
   padding: 20px 24px;
-  background: rgba(14, 20, 14, 0.6);
+  background: rgba(15, 20, 40, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 18px;
   transition: all 0.3s ease;

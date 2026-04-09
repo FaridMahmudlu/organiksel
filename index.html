@@ -31,7 +31,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/logo-dark.svg">
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#080C08">
+  <meta name="theme-color" content="#0A0E1A">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="DENY">
   <meta name="referrer" content="strict-origin-when-cross-origin">
@@ -46,10 +46,10 @@
   {"@context":"https://schema.org","@type":"ProfessionalService","name":"Organiksel","description":"Instagram hesaplarını organik yöntemlerle büyüten dijital danışmanlık ajansı.","url":"https://organiksel.com","logo":"https://organiksel.com/assets/logo-dark.svg","image":"https://organiksel.com/assets/og-image.png","telephone":"+905550497360","email":"avadigitaltr@gmail.com","priceRange":"$$","address":{"@type":"PostalAddress","addressCountry":"TR"},"sameAs":["https://www.instagram.com/organiksel"],"aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"150","bestRating":"5"},"hasOfferCatalog":{"@type":"OfferCatalog","name":"Instagram Danışmanlık Paketleri","itemListElement":[{"@type":"Offer","itemOffered":{"@type":"Service","name":"Organiksel — Organik Büyüme Paketi","description":"Profil analizi, içerik stratejisi, hashtag araştırması ve haftalık performans raporu."}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"OrganikSeLL — Satışa Dönüşüm Paketi","description":"Satış hunisi, dönüşüm stratejisi, 1e1 danışmanlık ve 7/24 WhatsApp destek."}}]}}
   </script>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Ücretsiz profil analizi gerçekten ücretsiz mi?","acceptedAnswer":{"@type":"Answer","text":"Evet, profil analizimiz tamamen ücretsizdir ve herhangi bir taahhüt gerektirmez."}},{"@type":"Question","name":"Sonuçları ne zaman görmeye başlarım?","acceptedAnswer":{"@type":"Answer","text":"İlk etkileşim artışlarını genellikle 2-4 hafta içinde görmeye başlarsınız."}},{"@type":"Question","name":"Bot veya sahte takipçi kullanıyor musunuz?","acceptedAnswer":{"@type":"Answer","text":"Kesinlikle hayır! Organiksel %100 organik yöntemler kullanır."}},{"@type":"Question","name":"Organiksel ve OrganikSeLL arasındaki fark nedir?","acceptedAnswer":{"@type":"Answer","text":"Organiksel organik büyüme odaklıdır. OrganikSeLL ise satış hunisi, 1e1 koçluk ve marka iş birlikleri ekler."}},{"@type":"Question","name":"Sözleşme veya minimum süre var mı?","acceptedAnswer":{"@type":"Answer","text":"Minimum 3 aylık taahhüt öneriyoruz. Ancak esnek planlarımız mevcuttur."}}]}
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Organiksel ve OrganikSeLL paketleri arasındaki fark nedir?","acceptedAnswer":{"@type":"Answer","text":"organikseL içerik üreticileri için hazırlanmış büyüme odaklı bir pakettir. organikseLL ise hizmet & ürün satan işletmeler ve markalar için özel olarak tasarlanmış, satış odaklı bir pakettir."}},{"@type":"Question","name":"Sonuçları ne zaman görmeye başlarım?","acceptedAnswer":{"@type":"Answer","text":"İlk etkileşim artışlarını genellikle 2-4 hafta içinde görmeye başlarsınız. Organik büyüme sabır gerektiren bir süreçtir, ancak doğru strateji ile sürdürülebilir sonuçlar elde edersiniz."}},{"@type":"Question","name":"Hizmet fiyatlarınız neden yazmıyor?","acceptedAnswer":{"@type":"Answer","text":"Tamamen kişiye/markaya özel süreç hazırladığımız için fiyatlar değişiklik gösterebiliyor."}},{"@type":"Question","name":"İçeriklerimi siz mi üretiyorsunuz?","acceptedAnswer":{"@type":"Answer","text":"Hayır, biz içerik üretmiyoruz ancak içerik üretmeye dair her şeyi öğretiyoruz."}}]}
   </script>
-  <link rel="preload" href="css/style.min.css" as="style">
-  <link rel="stylesheet" href="css/style.min.css">
+  <link rel="preload" href="css/style.css" as="style">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -57,7 +57,7 @@
   <!-- PRELOADER -->
   <div class="preloader" id="preloader">
     <div class="preloader-logo">
-      <span class="logo-text-green">Organik</span><span class="logo-text-red">SEL</span>
+      <img src="assets/logo-inline.svg" alt="Organiksel" width="200" height="34">
     </div>
   </div>
 
@@ -65,7 +65,7 @@
   <nav class="navbar" id="navbar">
     <div class="container">
       <a href="index.html" class="navbar-logo">
-        <span class="logo-text-green">Organik</span><span class="logo-text-red">SEL</span>
+        <img src="assets/logo-inline.svg" alt="Organiksel" width="160" height="28">
       </a>
       <ul class="nav-links">
         <li><a href="#referanslar">Referanslar</a></li>
@@ -103,14 +103,13 @@
     <div class="container">
       <div class="hero-badge fade-up">
         <span class="dot"></span>
-        Instagram Büyüme Partneri
+        Sana Özel Büyüme Sistemi
       </div>
       <h1 class="hero-title fade-up fade-up-delay-1">
-        Instagram hesabınıza<br><span class="highlight">organiksel</span> dokunuşlar
+        Aylar sürecek bilgileri,<br>sana özel sistemle <span class="highlight">1 ayda</span> öğretiyoruz.
       </h1>
       <p class="hero-subtitle fade-up fade-up-delay-2">
-        <strong>İçerik + Strateji + Sistem.</strong> Rastgele paylaşım devri bitti! Hesabınızı organik büyütmek için
-        doğru yerdesiniz.
+        Biz eğitim değil, sana <strong>zaman kazandıran bir sistem</strong> sunuyoruz. Tamamen sana özel hazırlanan süreçle Instagram hesabını organik büyüt.
       </p>
       <div class="hero-actions fade-up fade-up-delay-3">
         <a href="profile-analysis.html" class="btn btn-primary">
@@ -134,16 +133,16 @@
       </div>
       <div class="hero-stats fade-up fade-up-delay-4">
         <div class="hero-stat">
-          <div class="hero-stat-value" data-count="150" data-suffix="+">0</div>
-          <div class="hero-stat-label">Mutlu Müşteri</div>
+          <div class="hero-stat-value" data-count="5" data-suffix="K+" data-prefix="+">0</div>
+          <div class="hero-stat-label">Takipçi / 1 Ay</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-value" data-count="3" data-suffix="M+">0</div>
+          <div class="hero-stat-value" data-count="1" data-suffix="M+" data-prefix="+">0</div>
           <div class="hero-stat-label">Organik Erişim</div>
         </div>
         <div class="hero-stat">
-          <div class="hero-stat-value" data-count="95" data-suffix="%">0</div>
-          <div class="hero-stat-label">Müşteri Memnuniyeti</div>
+          <div class="hero-stat-value" data-count="5" data-suffix="+" data-prefix="+">0</div>
+          <div class="hero-stat-label">Satış (Dar Kitle)</div>
         </div>
       </div>
     </div>
@@ -255,16 +254,16 @@
 
       <div class="ref-stats fade-up">
         <div class="ref-stat-card">
-          <div class="ref-stat-value" data-count="150" data-suffix="+">0</div>
-          <div class="ref-stat-label">Mutlu Müşteri</div>
+          <div class="ref-stat-value" data-count="5" data-suffix="K+" data-prefix="+">0</div>
+          <div class="ref-stat-label">Takipçi / 1 Ayda</div>
         </div>
         <div class="ref-stat-card">
-          <div class="ref-stat-value" data-count="3" data-suffix="M+">0</div>
-          <div class="ref-stat-label">Toplam Organik Erişim</div>
+          <div class="ref-stat-value" data-count="1" data-suffix="M+" data-prefix="+">0</div>
+          <div class="ref-stat-label">Organik Erişim</div>
         </div>
         <div class="ref-stat-card">
-          <div class="ref-stat-value" data-count="280" data-suffix="%">0</div>
-          <div class="ref-stat-label">Ortalama Etkileşim Artışı</div>
+          <div class="ref-stat-value" data-count="5" data-suffix="+" data-prefix="+">0</div>
+          <div class="ref-stat-label">Satış (Pahalı Hizmet, Dar Kitle)</div>
         </div>
         <div class="ref-stat-card">
           <div class="ref-stat-value" data-count="95" data-suffix="%">0</div>
@@ -294,66 +293,52 @@
       <div class="services-grid">
         <div class="service-card fade-up fade-up-delay-1">
           <div class="service-icon">🌱</div>
-          <h3>Organiksel</h3>
-          <span class="service-tag">Başlangıç Paketi</span>
-          <p class="service-desc">Instagram hesabınızı organik büyütme yolculuğuna başlayın. Temel stratejiler ve içerik
-            planlaması ile hesabınızı dönüştürün.</p>
+          <h3>organikseL</h3>
+          <span class="service-tag">Büyüme Odaklı</span>
+          <p class="service-desc">İçerik üreticileri için tamamen sana özel hazırlanan organik büyüme sistemi. Seviyene ve nişine göre kişiselleştirilmiş eğitim süreci.</p>
           <ul class="service-features">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>Profil analizi ve optimizasyonu</li>
+              </svg>Tamamen sana özel eğitim (seviyene + nişine göre)</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>Aylık içerik stratejisi planı</li>
+              </svg>Eğitimi beraber işliyoruz</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>Hashtag araştırması ve öneriler</li>
+              </svg>Her hafta değerlendirme ve birebir görüşme</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>Haftalık performans raporu</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg><a href="mailto:avadigitaltr@gmail.com" style="color:inherit;text-decoration:none;">E-posta desteği</a></li>
+              </svg>Süreç tamamen size özel ilerler</li>
           </ul>
           <a href="services.html" class="btn btn-primary" style="width:100%;justify-content:center;">Detaylı İncele</a>
         </div>
 
         <div class="service-card premium fade-up fade-up-delay-2">
           <div class="service-icon">🚀</div>
-          <h3>OrganikSeLL</h3>
-          <span class="service-tag">Premium Paket</span>
-          <p class="service-desc">Satışa dönüşen bir Instagram stratejisi. Organik büyümenin ötesine geçin, hesabınızı
-            bir gelir kaynağına dönüştürün.</p>
+          <h3>organikseLL</h3>
+          <span class="service-tag">Büyüme & Satış Odaklı</span>
+          <p class="service-desc">Organik bir şekilde hizmet & ürün satmak isteyen markalar için özel hazırlanmış paket. Büyümenin ötesinde satışa dönüşüm.</p>
           <ul class="service-features">
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>Organiksel paketinin tüm özellikleri</li>
+              </svg>Tamamen markana özel eğitim (sektörüne ve profiline göre)</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>Satış hunisi ve dönüşüm stratejisi</li>
+              </svg>Eğitimi beraber işliyoruz</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>Reel & Story stratejisi</li>
+              </svg>Organik Satış / Pazarlama Eğitimi</li>
             <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
                 stroke-linejoin="round">
                 <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>1'e 1 danışmanlık seansları</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>7/24 WhatsApp destek</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"></polyline>
-              </svg>Marka iş birlikleri danışmanlığı</li>
+              </svg>Rakip Analiz Eğitimi</li>
           </ul>
           <a href="services.html" class="btn btn-red" style="width:100%;justify-content:center;">Detaylı İncele</a>
         </div>
@@ -380,32 +365,28 @@
           <div class="timeline-number">1</div>
           <div class="timeline-content">
             <h3>Profil Analizi</h3>
-            <p>Hesabınızı detaylı olarak analiz ediyoruz. İçerik kalitesi, etkileşim oranları, hedef kitle uyumu ve
-              rekabet durumunu inceliyoruz.</p>
+            <p>Hesabınızı ve sektörünüzü/nişinizi analiz ediyoruz. İçerik kalitesi, etkileşim oranları, hedef kitle uyumu ve rekabet durumunu inceliyoruz.</p>
           </div>
         </div>
         <div class="timeline-item fade-up fade-up-delay-2">
           <div class="timeline-number">2</div>
           <div class="timeline-content">
-            <h3>Strateji Oluşturma</h3>
-            <p>Analiz sonuçlarına göre size özel bir büyüme stratejisi hazırlıyoruz. İçerik takvimi, hashtag planı ve
-              paylaşım sistemi oluşturuyoruz.</p>
+            <h3>Eğitim</h3>
+            <p>Analiz sonucunda tamamen size/markanıza özel eğitim hazırlıyoruz. Markaysanız satış odaklı, içerik üreticisiyseniz büyüme odaklı bir program oluşturuyoruz.</p>
           </div>
         </div>
         <div class="timeline-item fade-up fade-up-delay-3">
           <div class="timeline-number">3</div>
           <div class="timeline-content">
-            <h3>Uygulama & Destek</h3>
-            <p>Stratejiyi birlikte uygulamaya koyuyoruz. Her adımda yanınızda olan ekibimiz, sorularınıza anında cevap
-              veriyor.</p>
+            <h3>Eğitim Sonrası Destek</h3>
+            <p>Eğitimden sonra 1 ay boyunca paylaşımlarınızı ve etkileşim oranlarınızı analiz ediyoruz. Haftada bir görüşme sağlayarak sürecinizi yakından takip ediyoruz.</p>
           </div>
         </div>
         <div class="timeline-item fade-up fade-up-delay-4">
           <div class="timeline-number">4</div>
           <div class="timeline-content">
-            <h3>Ölçme & Optimizasyon</h3>
-            <p>Sürekli performans takibi yapıyoruz. Verilere dayalı kararlarla stratejiyi optimize ediyor, sonuçları
-              maksimize ediyoruz.</p>
+            <h3>Hizmetimiz Daha Bitmedi</h3>
+            <p>1 aylık tamamen size özel hazırlanan süreç sonrası, soru sormak amacıyla organikseL gruba davet ediyoruz. Desteğimiz devam eder.</p>
           </div>
         </div>
       </div>
@@ -443,16 +424,14 @@
       <div class="faq-grid">
         <div class="faq-item fade-up">
           <button class="faq-question">
-            Ücretsiz profil analizi gerçekten ücretsiz mi?
+            Organiksel ve OrganikSeLL paketleri arasındaki fark nedir?
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner">Evet, profil analizimiz tamamen ücretsizdir ve herhangi bir taahhüt
-              gerektirmez. Hesabınızı detaylı olarak inceleyip size özel öneriler sunuyoruz. Devam etmek tamamen size
-              kalmış.</div>
+            <div class="faq-answer-inner">organikseL içerik üreticileri için hazırlanmış büyüme odaklı bir pakettir. organikseLL ise hizmet & ürün satan işletmeler ve markalar için özel olarak tasarlanmış, satış odaklı bir pakettir.</div>
           </div>
         </div>
 
@@ -465,39 +444,20 @@
             </svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner">İlk etkileşim artışlarını genellikle 2-4 hafta içinde görmeye başlarsınız.
-              Organik büyüme sabır gerektiren bir süreçtir, ancak doğru strateji ile sürdürülebilir ve kalıcı sonuçlar
-              elde edersiniz.</div>
+            <div class="faq-answer-inner">İlk etkileşim artışlarını genellikle 2-4 hafta içinde görmeye başlarsınız. Organik büyüme sabır gerektiren bir süreçtir, ancak doğru strateji ile sürdürülebilir sonuçlar elde edersiniz.</div>
           </div>
         </div>
 
         <div class="faq-item fade-up">
           <button class="faq-question">
-            Bot veya sahte takipçi kullanıyor musunuz?
+            Hizmet fiyatlarınız neden yazmıyor?
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner">Kesinlikle hayır! Organiksel adından da anlaşılacağı gibi %100 organik
-              yöntemler kullanır. Bot, sahte takipçi veya Instagram kurallarına aykırı hiçbir yöntem uygulamıyoruz.
-            </div>
-          </div>
-        </div>
-
-        <div class="faq-item fade-up">
-          <button class="faq-question">
-            Organiksel ve OrganikSeLL paketleri arasındaki fark nedir?
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">Organiksel paketi organik büyüme odaklıdır — içerik stratejisi, hashtag
-              analizi ve performans takibi içerir. OrganikSeLL ise bunların üstüne satış hunisi, dönüşüm stratejisi, 1'e
-              1 koçluk ve marka iş birlikleri danışmanlığı ekler.</div>
+            <div class="faq-answer-inner">Tamamen kişiye/markaya özel süreç hazırladığımız için fiyatlar değişiklik gösterebiliyor. Sizin ihtiyaçlarınıza en uygun teklifi sunabilmek için önce profil analizinizi yapmamız gerekiyor.</div>
           </div>
         </div>
 
@@ -510,23 +470,7 @@
             </svg>
           </button>
           <div class="faq-answer">
-            <div class="faq-answer-inner">Biz strateji, planlama ve danışmanlık sunuyoruz. İçerik fikirlerini,
-              caption'ları ve görsel önerilerini biz hazırlıyoruz, ancak son üretim sürecini birlikte yönetiyoruz.
-              İhtiyaca göre içerik üretim desteği de sunabiliyoruz.</div>
-          </div>
-        </div>
-
-        <div class="faq-item fade-up">
-          <button class="faq-question">
-            Sözleşme veya minimum süre var mı?
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-          </button>
-          <div class="faq-answer">
-            <div class="faq-answer-inner">Minimum 3 aylık bir taahhüt öneriyoruz çünkü organik büyüme zaman alan bir
-              süreçtir. Ancak esnek planlarımız mevcuttur ve istediğiniz zaman sonlandırabilirsiniz.</div>
+            <div class="faq-answer-inner">Hayır, biz içerik üretmiyoruz — ancak içerik üretmeye dair her şeyi öğretiyoruz. Strateji, planlama, kurgulama ve optimizasyon süreçlerinin tamamını size aktarıyoruz.</div>
           </div>
         </div>
       </div>
@@ -651,7 +595,7 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="index.html" class="navbar-logo">
-            <span class="logo-text-green">Organik</span><span class="logo-text-red">SEL</span>
+            <img src="assets/logo-inline.svg" alt="Organiksel" width="160" height="28">
           </a>
           <p>Instagram hesaplarını organik yöntemlerle büyüten, içerik stratejisi ve sistem kurgusuyla gerçek sonuçlar
             elde eden dijital danışmanlık ajansı.</p>
@@ -727,7 +671,7 @@
     </div>
   </div>
 
-  <script src="js/main.min.js"></script>
+  <script src="js/main.js"></script>
 </body>
 
 </html>
