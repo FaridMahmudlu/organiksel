@@ -605,7 +605,7 @@
             </div>
 
             <!-- Download Button -->
-            <a href="assets/video_yaren_6fa8b9c12e34f781.mp4" download="Organiksel_Egitim_Videosu.mp4" class="download-btn" id="downloadBtn" title="Videoyu Bilgisayara İndir">
+            <a href="#" download="" class="download-btn" id="downloadBtn" title="Videoyu Bilgisayara İndir">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                 <polyline points="7 10 12 15 17 10"></polyline>
@@ -625,9 +625,19 @@
   </div>
 
   <script>
-    // SHA-256 Hash of password "YarenOrganiksel2026!"
-    const TARGET_HASH = "602eb05a1067bec4fcdd989e3634b33548ecb6640365560c91d597a564df6cca";
-    const VIDEO_SRC = "assets/video_yaren_6fa8b9c12e34f781.mp4";
+    // Configuration for multiple authenticated users/passwords
+    const USERS = {
+      yaren: {
+        hash: "602eb05a1067bec4fcdd989e3634b33548ecb6640365560c91d597a564df6cca", // password: YarenOrganiksel2026!
+        videoSrc: "assets/video_yaren_6fa8b9c12e34f781.mp4",
+        downloadName: "Organiksel_Egitim_Yaren.mp4"
+      },
+      suranur: {
+        hash: "60db4dabc4f05d97b97d25654bc8f956dbcf8641f66ad58b0e998e037ecd3a79", // password: SuranurOrganiksel2026!
+        videoSrc: "assets/video_suranur_3fa9b8c12d34e782.mp4",
+        downloadName: "Organiksel_Egitim_Suranur.mp4"
+      }
+    };
 
     const loginCard = document.getElementById('loginCard');
     const eduContent = document.getElementById('eduContent');
@@ -670,10 +680,19 @@
       if (!password) return;
       
       const hash = await hashString(password);
-      if (hash === TARGET_HASH) {
-        sessionStorage.setItem('egitim_authenticated', 'true');
+      let matchedUserKey = null;
+
+      for (const [userKey, data] of Object.entries(USERS)) {
+        if (data.hash === hash) {
+          matchedUserKey = userKey;
+          break;
+        }
+      }
+
+      if (matchedUserKey) {
+        sessionStorage.setItem('egitim_auth_user', matchedUserKey);
         errorMsg.style.display = 'none';
-        showEgitimPage();
+        showEgitimPage(matchedUserKey);
       } else {
         errorMsg.style.display = 'block';
         loginCard.classList.add('shake');
@@ -698,14 +717,21 @@
     }
 
     // Show Content Page
-    function showEgitimPage() {
+    function showEgitimPage(userKey) {
       loginCard.style.display = 'none';
       eduContent.style.display = 'block';
+
+      const userData = USERS[userKey];
+
+      // Update download button href and name dynamically
+      const downloadBtn = document.getElementById('downloadBtn');
+      downloadBtn.href = userData.videoSrc;
+      downloadBtn.setAttribute('download', userData.downloadName);
       
       // Inject Video to prevent download before authorization
       if (!video) {
         video = document.createElement('video');
-        video.src = VIDEO_SRC;
+        video.src = userData.videoSrc;
         video.setAttribute('playsinline', '');
         video.setAttribute('controls', ''); // Native controls as fallback/secondary UI
         video.style.width = '100%';
@@ -791,7 +817,7 @@
     // Logout Action
     logoutBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      sessionStorage.removeItem('egitim_authenticated');
+      sessionStorage.removeItem('egitim_auth_user');
       
       // Pause video if playing
       if (video) {
@@ -808,8 +834,9 @@
 
     // On Load: Check if session is authenticated
     window.addEventListener('DOMContentLoaded', () => {
-      if (sessionStorage.getItem('egitim_authenticated') === 'true') {
-        showEgitimPage();
+      const savedUser = sessionStorage.getItem('egitim_auth_user');
+      if (savedUser && USERS[savedUser]) {
+        showEgitimPage(savedUser);
       } else {
         loginCard.style.display = 'block';
         eduContent.style.display = 'none';
