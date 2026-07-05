@@ -285,10 +285,12 @@
 
     /* Video controls container just below the video wrapper */
     .custom-controls {
-      padding: 20px;
+      padding: 24px 20px;
       background: var(--bg-dark-2);
       border-top: 1.5px solid var(--border-glass);
-      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
     .controls-row {
@@ -296,69 +298,101 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
+      width: 100%;
     }
 
     .play-pause-btn {
       background: var(--green-600);
       color: white;
       border-radius: var(--radius-sm);
-      padding: 8px 16px;
+      padding: 10px 20px;
       font-weight: 600;
       font-size: 0.9rem;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       transition: var(--transition-fast);
       border: none;
       cursor: pointer;
+      box-shadow: var(--shadow-sm);
     }
 
     .play-pause-btn:hover {
       background: var(--green-700);
+      transform: translateY(-1px);
+    }
+
+    .time-display {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
     }
 
     .speed-selector {
       display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      border-top: 1px solid var(--border-glass);
+      padding-top: 16px;
+    }
+
+    .speed-header {
+      display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 6px;
-      flex-wrap: wrap;
     }
 
     .speed-label {
-      font-size: 0.85rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: 700;
       color: var(--text-secondary);
-      margin-right: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .speed-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      width: 100%;
     }
 
     .speed-btn {
-      padding: 6px 10px;
-      border-radius: 6px;
+      padding: 8px 4px;
+      border-radius: 8px;
       font-size: 0.8rem;
       font-weight: 600;
-      background: rgba(12, 33, 24, 0.05);
+      background: rgba(12, 33, 24, 0.04);
       color: var(--text-secondary);
-      border: 1px solid transparent;
+      border: 1px solid var(--border-glass);
       transition: var(--transition-fast);
       cursor: pointer;
+      text-align: center;
     }
 
     .speed-btn:hover {
-      background: rgba(12, 33, 24, 0.1);
+      background: rgba(12, 33, 24, 0.08);
       color: var(--text-primary);
     }
 
     .speed-btn.active {
       background: var(--green-100);
       color: var(--green-900);
-      border-color: var(--green-200);
+      border-color: var(--green-300);
+      box-shadow: var(--shadow-sm);
     }
 
-    .time-display {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      font-variant-numeric: tabular-nums;
+    .actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      border-top: 1px solid var(--border-glass);
+      padding-top: 16px;
+      flex-wrap: wrap;
     }
 
     .quick-jump {
@@ -367,13 +401,13 @@
     }
 
     .jump-btn {
-      background: transparent;
+      background: white;
       border: 1px solid var(--border-glass);
       color: var(--text-secondary);
-      border-radius: var(--radius-sm);
-      padding: 6px 12px;
+      border-radius: 8px;
+      padding: 8px 12px;
       font-size: 0.8rem;
-      font-weight: 500;
+      font-weight: 600;
       transition: var(--transition-fast);
       display: flex;
       align-items: center;
@@ -385,6 +419,30 @@
       background: var(--bg-dark-3);
       color: var(--text-primary);
       border-color: var(--text-muted);
+    }
+
+    .download-btn {
+      background: linear-gradient(135deg, var(--green-600), var(--green-500));
+      color: white;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition-fast);
+      box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+      border: none;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      background: linear-gradient(135deg, var(--green-700), var(--green-600));
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+      color: white;
     }
 
     /* Shake Animation for failed login */
@@ -504,9 +562,10 @@
         
         <!-- Custom Controls Panel -->
         <div class="custom-controls">
+          <!-- Play & Time -->
           <div class="controls-row">
             <button class="play-pause-btn" id="playPauseBtn">
-              <svg id="playIcon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <svg id="playIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                 <polygon points="5 3 19 12 5 21 5 3"></polygon>
               </svg>
               <span>Oynat</span>
@@ -514,15 +573,22 @@
             <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
           </div>
           
-          <div class="controls-row" style="margin-top: 16px;">
-            <div class="speed-selector">
-              <span class="speed-label">Hız:</span>
+          <!-- Speed Selector -->
+          <div class="speed-selector">
+            <div class="speed-header">
+              <span class="speed-label">Oynatma Hızı:</span>
+            </div>
+            <div class="speed-grid">
+              <button class="speed-btn" data-speed="0.5">0.5x</button>
               <button class="speed-btn active" data-speed="1">1.0x</button>
               <button class="speed-btn" data-speed="1.25">1.25x</button>
               <button class="speed-btn" data-speed="1.5">1.5x</button>
               <button class="speed-btn" data-speed="2">2.0x</button>
             </div>
-            
+          </div>
+
+          <!-- Actions: Jump & Download -->
+          <div class="actions-row">
             <div class="quick-jump">
               <button class="jump-btn" id="rewindBtn" title="10 Saniye Geri">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -537,6 +603,16 @@
                 +10s
               </button>
             </div>
+
+            <!-- Download Button -->
+            <a href="assets/video_yaren_6fa8b9c12e34f781.mp4" download="Organiksel_Egitim_Videosu.mp4" class="download-btn" id="downloadBtn" title="Videoyu Bilgisayara İndir">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Videoyu İndir</span>
+            </a>
           </div>
         </div>
       </div>
