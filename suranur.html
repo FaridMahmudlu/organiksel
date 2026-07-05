@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <title>Eğitim Paneli — Organiksel</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo-dark.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="stylesheet" href="css/style.min.css">
+  
+  <style>
+    /* Custom styling for suranur.html */
+    .egitim-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Password Card Style */
+    .login-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius-lg);
+      padding: 48px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: var(--shadow-lg);
+      text-align: center;
+      transition: var(--transition-smooth);
+      position: relative;
+      overflow: hidden;
+      display: none; /* Controlled by JS */
+    }
+
+    .login-card .logo {
+      margin-bottom: 24px;
+    }
+
+    .login-card h2 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+    }
+
+    .login-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 32px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .password-wrapper {
+      position: relative;
+    }
+
+    .password-wrapper input {
+      width: 100%;
+      padding: 14px 44px 14px 16px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid var(--border-glass);
+      background: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+      color: var(--text-primary);
+      font-family: inherit;
+      outline: none;
+      transition: var(--transition-fast);
+    }
+
+    .password-wrapper input:focus {
+      border-color: var(--green-500);
+      box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+      background: white;
+    }
+
+    .toggle-pass {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      transition: var(--transition-fast);
+    }
+
+    .toggle-pass:hover {
+      color: var(--text-primary);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--green-600), var(--green-500));
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.2);
+      transition: var(--transition-fast);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(76, 175, 80, 0.35);
+    }
+
+    .error-msg {
+      background: rgba(183, 28, 28, 0.1);
+      border: 1px solid rgba(183, 28, 28, 0.2);
+      color: var(--red-700);
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    /* Content Layout */
+    .edu-content {
+      display: none;
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+      animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Header styling */
+    .edu-header {
+      margin-bottom: 40px;
+    }
+
+    .edu-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: var(--bg-dark-3);
+      border: 1px solid var(--border-glass);
+      color: var(--green-800);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .edu-title {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 16px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      font-family: var(--font-heading);
+    }
+
+    .txt-green {
+      color: var(--green-600);
+      text-shadow: 0 0 20px rgba(67, 160, 71, 0.15);
+    }
+
+    .txt-red {
+      color: var(--red-600);
+      text-shadow: 0 0 20px rgba(216, 67, 21, 0.15);
+    }
+
+    .edu-subtitle {
+      color: var(--text-secondary);
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Styled Video Player Container */
+    .video-player-container {
+      width: 100%;
+      max-width: 440px; /* portrait screen recording focus */
+      margin: 0 auto 32px;
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-glass-hover);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg), var(--shadow-glow);
+      overflow: hidden;
+      position: relative;
+      transition: var(--transition-smooth);
+    }
+
+    .video-player-container:hover {
+      box-shadow: var(--shadow-lg), 0 0 35px rgba(67, 160, 71, 0.3);
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1080 / 1728;
+      background: #000;
+      overflow: hidden;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Custom Player Interface Overlay */
+    .player-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity var(--transition-fast);
+      cursor: pointer;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .video-wrapper:hover .player-overlay {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .overlay-play-btn {
+      width: 72px;
+      height: 72px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      transform: scale(0.9);
+      transition: var(--transition-fast);
+      color: var(--green-800);
+    }
+
+    .overlay-play-btn:hover {
+      transform: scale(1);
+      background: #fff;
+    }
+
+    /* Video controls container just below the video wrapper */
+    .custom-controls {
+      padding: 24px 20px;
+      background: var(--bg-dark-2);
+      border-top: 1.5px solid var(--border-glass);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .controls-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+    }
+
+    .play-pause-btn {
+      background: var(--green-600);
+      color: white;
+      border-radius: var(--radius-sm);
+      padding: 10px 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition-fast);
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .play-pause-btn:hover {
+      background: var(--green-700);
+      transform: translateY(-1px);
+    }
+
+    .time-display {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .speed-selector {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      border-top: 1px solid var(--border-glass);
+      padding-top: 16px;
+    }
+
+    .speed-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .speed-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .speed-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      width: 100%;
+    }
+
+    .speed-btn {
+      padding: 8px 4px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: rgba(12, 33, 24, 0.04);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-glass);
+      transition: var(--transition-fast);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .speed-btn:hover {
+      background: rgba(12, 33, 24, 0.08);
+      color: var(--text-primary);
+    }
+
+    .speed-btn.active {
+      background: var(--green-100);
+      color: var(--green-900);
+      border-color: var(--green-300);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .actions-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      border-top: 1px solid var(--border-glass);
+      padding-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .quick-jump {
+      display: flex;
+      gap: 8px;
+    }
+
+    .jump-btn {
+      background: white;
+      border: 1px solid var(--border-glass);
+      color: var(--text-secondary);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .jump-btn:hover {
+      background: var(--bg-dark-3);
+      color: var(--text-primary);
+      border-color: var(--text-muted);
+    }
+
+    .download-btn {
+      background: linear-gradient(135deg, var(--green-600), var(--green-500));
+      color: white;
+      border-radius: 8px;
+      padding: 10px 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition-fast);
+      box-shadow: 0 2px 8px rgba(76, 175, 80, 0.15);
+      border: none;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .download-btn:hover {
+      background: linear-gradient(135deg, var(--green-700), var(--green-600));
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+      color: white;
+    }
+
+    /* Shake Animation for failed login */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-10px); }
+      40%, 80% { transform: translateX(10px); }
+    }
+
+    .shake {
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Additional custom elements */
+    .edu-footer {
+      margin-top: 32px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .edu-footer a {
+      color: var(--green-600);
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    .edu-footer a:hover {
+      color: var(--green-800);
+    }
+  </style>
+</head>
+
+<body class="subpage">
+
+  <!-- BACKGROUND ORBS AND GRID REUSED FROM MAIN TEMPLATE -->
+  <div class="hero-bg" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none;">
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-grid"></div>
+  </div>
+
+  <div class="egitim-container">
+    
+    <!-- LOGIN SCREEN -->
+    <div class="login-card" id="loginCard">
+      <div class="logo">
+        <a href="index.html">
+          <img src="assets/logo-inline.svg" alt="Organiksel" width="180" height="31">
+        </a>
+      </div>
+      <h2>Eğitim Paneline Giriş</h2>
+      <p>Lütfen size özel tanımlanan eğitim şifresini yazın.</p>
+      
+      <div class="error-msg" id="errorMsg">
+        Geçersiz şifre! Lütfen şifrenizi kontrol edip tekrar deneyin.
+      </div>
+      
+      <div class="input-group">
+        <label for="passwordInput">Şifre</label>
+        <div class="password-wrapper">
+          <input type="password" id="passwordInput" placeholder="Şifrenizi yazın..." autocomplete="current-password">
+          <button class="toggle-pass" id="togglePass" aria-label="Şifreyi göster">
+            <!-- EYE ICON -->
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <button class="login-btn" id="loginBtn">
+        Giriş Yap
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+    </div>
+
+    <!-- MAIN EDUCATION CONTENT SCREEN -->
+    <div class="edu-content" id="eduContent">
+      <div class="edu-header">
+        <div class="edu-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+          Özel Erişim Yetkisi Sağlandı
+        </div>
+        <h1 class="edu-title">
+          <span class="txt-green">Önce Eğitim</span> <span class="txt-red">Sonra Ödeme</span>
+        </h1>
+        <p class="edu-subtitle">
+          Organiksel Instagram Büyüme ve Dönüşüm Danışmanlığı kapsamındaki özel eğitim kaydınız aşağıdadır. Videoyu dilediğiniz hızda izleyebilirsiniz.
+        </p>
+      </div>
+
+      <!-- Styled Video Player -->
+      <div class="video-player-container">
+        <div class="video-wrapper" id="videoWrapper">
+          <!-- Video will be dynamically injected here for maximum security -->
+          <div class="player-overlay" id="playerOverlay">
+            <div class="overlay-play-btn">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Custom Controls Panel -->
+        <div class="custom-controls">
+          <!-- Play & Time -->
+          <div class="controls-row">
+            <button class="play-pause-btn" id="playPauseBtn">
+              <svg id="playIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <span>Oynat</span>
+            </button>
+            <div class="time-display" id="timeDisplay">0:00 / 0:00</div>
+          </div>
+          
+          <!-- Speed Selector -->
+          <div class="speed-selector">
+            <div class="speed-header">
+              <span class="speed-label">Oynatma Hızı:</span>
+            </div>
+            <div class="speed-grid">
+              <button class="speed-btn" data-speed="0.5">0.5x</button>
+              <button class="speed-btn active" data-speed="1">1.0x</button>
+              <button class="speed-btn" data-speed="1.25">1.25x</button>
+              <button class="speed-btn" data-speed="1.5">1.5x</button>
+              <button class="speed-btn" data-speed="2">2.0x</button>
+            </div>
+          </div>
+
+          <!-- Actions: Jump & Download -->
+          <div class="actions-row">
+            <div class="quick-jump">
+              <button class="jump-btn" id="rewindBtn" title="10 Saniye Geri">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a10 10 0 0 0-7.07 17.07l1.41-1.41A8 8 0 1 1 12 20h-1v-2l-4 4 4 4v-2h1a10 10 0 0 0 0-20z"></path>
+                </svg>
+                -10s
+              </button>
+              <button class="jump-btn" id="forwardBtn" title="10 Saniye İleri">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2a10 10 0 0 1 7.07 17.07l-1.41-1.41A8 8 0 1 0 12 20h1v-2l4 4-4 4v-2h-1a10 10 0 0 1 0-20z"></path>
+                </svg>
+                +10s
+              </button>
+            </div>
+
+            <!-- Download Button -->
+            <a href="assets/video_suranur_3fa9b8c12d34e782.mp4" download="Organiksel_Egitim_Videosu.mp4" class="download-btn" id="downloadBtn" title="Videoyu Bilgisayara İndir">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Videoyu İndir</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-footer">
+        Oturumu sonlandırmak ister misiniz? <a href="#" id="logoutBtn">Çıkış Yap</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // SHA-256 Hash of password "SuranurOrganiksel2026!"
+    const TARGET_HASH = "60db4dabc4f05d97b97d25654bc8f956dbcf8641f66ad58b0e998e037ecd3a79";
+    const VIDEO_SRC = "assets/video_suranur_3fa9b8c12d34e782.mp4";
+
+    const loginCard = document.getElementById('loginCard');
+    const eduContent = document.getElementById('eduContent');
+    const passwordInput = document.getElementById('passwordInput');
+    const errorMsg = document.getElementById('errorMsg');
+    const loginBtn = document.getElementById('loginBtn');
+    const togglePass = document.getElementById('togglePass');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    // Video elements
+    const videoWrapper = document.getElementById('videoWrapper');
+    const playerOverlay = document.getElementById('playerOverlay');
+    const playPauseBtn = document.getElementById('playPauseBtn');
+    const playIcon = document.getElementById('playIcon');
+    const timeDisplay = document.getElementById('timeDisplay');
+    const rewindBtn = document.getElementById('rewindBtn');
+    const forwardBtn = document.getElementById('forwardBtn');
+    const speedButtons = document.querySelectorAll('.speed-btn');
+
+    let video = null;
+
+    // Helper functions for SHA-256
+    async function hashString(str) {
+      const msgBuffer = new TextEncoder().encode(str);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
+    // Toggle Password Visibility
+    togglePass.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePass.classList.toggle('active');
+    });
+
+    // Check password action
+    async function checkPassword() {
+      const password = passwordInput.value;
+      if (!password) return;
+      
+      const hash = await hashString(password);
+      if (hash === TARGET_HASH) {
+        sessionStorage.setItem('suranur_authenticated', 'true');
+        errorMsg.style.display = 'none';
+        showEgitimPage();
+      } else {
+        errorMsg.style.display = 'block';
+        loginCard.classList.add('shake');
+        passwordInput.value = '';
+        setTimeout(() => loginCard.classList.remove('shake'), 500);
+      }
+    }
+
+    loginBtn.addEventListener('click', checkPassword);
+    passwordInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+
+    // Format time format: e.g. 05:32
+    function formatTime(seconds) {
+      if (isNaN(seconds) || seconds === Infinity) return "0:00";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60);
+      return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    // Show Content Page
+    function showEgitimPage() {
+      loginCard.style.display = 'none';
+      eduContent.style.display = 'block';
+      
+      // Inject Video to prevent download before authorization
+      if (!video) {
+        video = document.createElement('video');
+        video.src = VIDEO_SRC;
+        video.setAttribute('playsinline', '');
+        video.setAttribute('controls', ''); // Native controls as fallback/secondary UI
+        video.style.width = '100%';
+        video.style.height = '100%';
+        video.style.objectFit = 'cover';
+        
+        // Insert video before the overlay
+        videoWrapper.insertBefore(video, playerOverlay);
+        
+        // Video event listeners
+        video.addEventListener('timeupdate', updateProgress);
+        video.addEventListener('loadedmetadata', updateProgress);
+        video.addEventListener('play', onPlayStateChange);
+        video.addEventListener('pause', onPlayStateChange);
+        
+        // Double check duration once metadata is loaded
+        video.addEventListener('loadeddata', updateProgress);
+      }
+    }
+
+    // Progress updates
+    function updateProgress() {
+      if (!video) return;
+      timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+    }
+
+    function onPlayStateChange() {
+      if (!video) return;
+      if (video.paused) {
+        playPauseBtn.querySelector('span').textContent = 'Oynat';
+        playIcon.innerHTML = '<polygon points="5 3 19 12 5 21 5 3"></polygon>';
+        playerOverlay.style.opacity = '1';
+        playerOverlay.style.pointerEvents = 'auto';
+      } else {
+        playPauseBtn.querySelector('span').textContent = 'Durdur';
+        playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect>';
+        playerOverlay.style.opacity = '0';
+        playerOverlay.style.pointerEvents = 'none';
+      }
+    }
+
+    // Play/Pause button
+    playPauseBtn.addEventListener('click', () => {
+      if (!video) return;
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    });
+
+    // Click on video overlay
+    playerOverlay.addEventListener('click', () => {
+      if (!video) return;
+      video.play();
+    });
+
+    // Hız değiştirme (Playback Speed controls)
+    speedButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (!video) return;
+        const speed = parseFloat(btn.getAttribute('data-speed'));
+        video.playbackRate = speed;
+        
+        // Update active class
+        speedButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+
+    // 10s Rewind
+    rewindBtn.addEventListener('click', () => {
+      if (!video) return;
+      video.currentTime = Math.max(0, video.currentTime - 10);
+    });
+
+    // 10s Forward
+    forwardBtn.addEventListener('click', () => {
+      if (!video) return;
+      video.currentTime = Math.min(video.duration || 0, video.currentTime + 10);
+    });
+
+    // Logout Action
+    logoutBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      sessionStorage.removeItem('suranur_authenticated');
+      
+      // Pause video if playing
+      if (video) {
+        video.pause();
+        video.remove();
+        video = null;
+      }
+      
+      // Reset inputs & UI
+      passwordInput.value = '';
+      eduContent.style.display = 'none';
+      loginCard.style.display = 'block';
+    });
+
+    // On Load: Check if session is authenticated
+    window.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('suranur_authenticated') === 'true') {
+        showEgitimPage();
+      } else {
+        loginCard.style.display = 'block';
+        eduContent.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+
+</html>
